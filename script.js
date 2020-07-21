@@ -23,9 +23,7 @@ const cardMemoryGame = () => {
   }
 
   function hideCards ({cardIndex, cardSelected, id}){
-    console.log('hideCards')
     if(cardSelected.id === id){
-      console.log('equal')
       
       const cards = [
         document.querySelector(`div[data-index="${cardIndex}"]`),
@@ -39,7 +37,6 @@ const cardMemoryGame = () => {
         item.innerHTML = ''
       })
     }else{
-      console.log('not equal')
       cardSelected = {}
     }
     while(document.querySelector('div.selected')){
@@ -50,6 +47,13 @@ const cardMemoryGame = () => {
 
     if(!checkFinish()){
       clearInterval(timerInterval)
+    }else{
+      const cards = [...document.getElementById('board').childNodes]
+      cards.map(card => {
+        console.log(card.childNodes.innerHTML !== '')
+        if(card.childNodes.innerHTML !== '')
+        card.addEventListener('click',handleClick)
+      })
     }
   }
 
@@ -69,7 +73,6 @@ const cardMemoryGame = () => {
     cardWrap.removeEventListener('click',handleClick)
   
     if(!cardSelected.id){
-      console.log('first card')
       cardSelected = {cardIndex,id}
     }else{
 
