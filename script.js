@@ -3,56 +3,85 @@ const cardMemoryGame = () => {
   let cardSelected = {}
   let timerInterval
 
-  function startClock(){
-    
-    const timer = () => {
-      
+  function resetClock(){
+    const clock = getClock()
+
+    clock.hours.innerHTML = 0
+    clock.minutes.innerHTML = 0
+    clock.seconds.innerHTML = 0
+
+  }
+
+  function showClock(){
+
+    const clock = [...document.querySelectorAll('ul li')]
+    clock.map(li => li.style.display = 'flex')
+  }
+
+  function getClock(){
       const timerNodes = [...document.querySelectorAll('ul li div')]
       const hours = parseInt(timerNodes[0].innerHTML)
       const minutes = parseInt(timerNodes[1].innerHTML)
       const seconds = parseInt(timerNodes[2].innerHTML)
+
+      return {
+        timerNodes: {
+          hours: timerNodes[0], 
+          minutes: timerNodes[1], 
+          seconds: timerNodes[2]
+        }, 
+        hours, 
+        minutes, 
+        seconds
+      }
+  }
+
+  function startClock(){
+
+    const timer = () => {
       
-      timerNodes[0].innerHTML = minutes >= 59 && seconds >= 59 ? hours + 1 : hours
-      timerNodes[1].innerHTML = seconds >= 59 
+      const {timerNodes, hours, minutes, seconds} = getClock()
+      timerNodes.hours
+      timerNodes.hours.innerHTML = minutes >= 59 && seconds >= 59 ? hours + 1 : hours
+      timerNodes.minutes.innerHTML = seconds >= 59 
         ? minutes < 59 ? minutes + 1 : 0
         : minutes
-      timerNodes[2].innerHTML = seconds < 59 ? seconds + 1 : 0
+      timerNodes.seconds.innerHTML = seconds < 59 ? seconds + 1 : 0
     }
 
     timerInterval = setInterval(timer, 1000)
   }
 
-  function hideCards ({cardIndex, cardSelected, id}){
+  function hideCards ({cardIndex, id}){
+    console.log('hideCards', cardSelected, id)
     if(cardSelected.id === id){
-      
+      console.log('equal')
       const cards = [
         document.querySelector(`div[data-index="${cardIndex}"]`),
         document.querySelector(`div[data-index="${cardSelected.cardIndex}"]`)
       ]
       
-      cardSelected = {}
       cards.map(item => {
         item.removeEventListener('click', handleClick)
         item.getElementsByClassName.cursor = 'initial'
         item.innerHTML = ''
       })
-    }else{
-      cardSelected = {}
     }
-    while(document.querySelector('div.selected')){
-      const card = document.querySelector('div.selected')
-      card.classList.remove('selected')
-      card.addEventListener('click',handleClick)
-    }
+    cardSelected = {}
 
     if(!checkFinish()){
       clearInterval(timerInterval)
+      document.getElementById('board').innerHTML = ''
     }else{
       const cards = [...document.getElementById('board').childNodes]
       cards.map(card => {
-        console.log(card.childNodes.innerHTML !== '')
+        const classList = [...card.classList]
+        
+        if(classList.includes('selected'))
+          card.classList.remove('selected')
+        
         if(card.childNodes.innerHTML !== '')
-        card.addEventListener('click',handleClick)
+          card.addEventListener('click',handleClick)
       })
     }
   }
@@ -76,12 +105,11 @@ const cardMemoryGame = () => {
       cardSelected = {cardIndex,id}
     }else{
 
-      setTimeout(() => hideCards({cardIndex, cardSelected, id}), 1200)
+      setTimeout(() => hideCards({cardIndex, id}), 1200)
 
       const cards = [...document.getElementById('board').childNodes]
       cards.map(card => card.removeEventListener('click',handleClick))
 
-      cardSelected = {}
     }
   }
 
@@ -125,14 +153,16 @@ const cardMemoryGame = () => {
   function getBoard ({imgs}){
     
     const board = document.getElementById('board')
-
     getCards(imgs).map(card => board.appendChild(card))
-
+    board.style.display = 'flex'
   }
 
   function start (config){
     getBoard(config)
+    
+    resetClock()
     startClock()
+    showClock()
   }
 
   return {start}
