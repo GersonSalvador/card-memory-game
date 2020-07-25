@@ -1,6 +1,7 @@
 *{
   margin: 0;
   padding: 0;
+  transition: all 0.8s ease-in;
 }
 
 :root{
@@ -35,17 +36,17 @@ section{
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: calc(100% - 120px);
+  min-height: calc(100% - 120px);
 }
 
-section #counter ul{
+section ul{
   list-style: none;
   display: flex;
   padding: 20px 0;
   width: 460px;
 }
 
-section #counter ul li{
+section ul li{
   display: none;
   justify-content: center;
   align-items: center;
@@ -69,7 +70,7 @@ main#board{
   align-items: center;
   background-color: var(--Purple-3);
   padding: 10px 5px;
-  width: 450px;
+  width: 880px;
   transition: all 0.8s ease-in;
 }
 
@@ -129,4 +130,39 @@ section ul button{
   text-transform: uppercase;
   font-size: large;
   cursor: pointer;
+}
+
+#message-container{
+  font-size: 24px;
+  color: #fff;
+  text-align: center;
+}
+
+#message-container h3{
+  font-weight: 400;
+}
+
+#message-container.failed h1{
+  color: #c42d2d
+}
+
+#message-container.success h1{
+  color: #2dc439
+}
+
+/* #challenging ul{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+#challenging ul li{
+  display: block;
+  text-align: center;
+  cursor: pointer;
+}
+
+#challenging ul li.active,
+#challenging ul li:hover{
+  background: rgba(0,0,0,.2);
+  transition: all .2s linear;
 }
