@@ -6,9 +6,11 @@ import {setGameDifficult} from './setGameDifficult.mjs'
 window.addEventListener('load', ()=>{
 
   const cardMemoryGame = () => {
-
-    window.timerInterval = null
-    window.cardSelected = {}
+    window.game = {
+      timerInterval: null,
+      cardSelected: {},
+      attempts: 0
+    }
     
     addDefaultEventsBtn(getBtn)
     setGameDifficult('easy', getBtn)

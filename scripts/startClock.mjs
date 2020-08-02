@@ -13,5 +13,5 @@ export function startClock(){
     timerNodes.seconds.innerHTML = seconds < 59 ? seconds + 1 : 0
   }
 
-  timerInterval = setInterval(timer, 1000)
+  game.timerInterval = setInterval(timer, 1000)
 }

@@ -1,17 +1,17 @@
 import {checkFinish} from './checkFinish.mjs'
-import {setMessage} from './setMessage.mjs'
-import {resign} from './resign.mjs'
-import {start} from './start.mjs'
 import {handleClick} from './handleClick.mjs'
-import {getBtn} from './getBtn.mjs'
+import {handleStartBtn} from './handleStartBtn.mjs'
+import {finishGame} from './finishGame.mjs'
 
 export function hideCards ({cardIndex, id}){
-      
-  if(cardSelected.id === id){
+
+  game.attempts += 1
+  console.log(game.attempts)
+  if(game.cardSelected.id === id){
   
     const cards = [
       document.querySelector(`div[data-index="${cardIndex}"]`),
-      document.querySelector(`div[data-index="${cardSelected.cardIndex}"]`)
+      document.querySelector(`div[data-index="${game.cardSelected.cardIndex}"]`)
     ]
     
     cards.map(item => {
@@ -20,26 +20,13 @@ export function hideCards ({cardIndex, id}){
       item.innerHTML = ''
     })
   }
-  cardSelected = {}
+
+  game.cardSelected = {}
 
   if(checkFinish()){
 
-    clearInterval(timerInterval)
-
-    const title = 'Congatulations!'
-    const text = 'You won!'
-    const type = 'success'
-    const board = document.getElementById('board')
-    const btn = getBtn('start')
-    
-    board.innerHTML = ''
-    board.style.display = 'none'
-    
-    setMessage({title, text, type})
-
-    btn.innerHTML = 'Start'
-    btn.removeEventListener('click', resign)
-    btn.addEventListener('click',start)
+    handleStartBtn('start')
+    finishGame()
 
   }else{
     const cards = [...document.getElementById('board').childNodes]

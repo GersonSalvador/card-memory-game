@@ -9,8 +9,8 @@ export function handleClick ({target}) {
   const cardIndex = cardWrap.dataset.index
   cardWrap.removeEventListener('click',handleClick)
 
-  if(!cardSelected.id){
-    cardSelected = {cardIndex,id}
+  if(!game.cardSelected.id){
+    game.cardSelected = {cardIndex,id}
   }else{
 
     setTimeout(() => hideCards({cardIndex, id}), 600)
