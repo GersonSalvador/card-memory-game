@@ -1,4 +1,5 @@
 import {start} from './start.mjs'
+import {setActive} from './setActive.mjs'
 
 export function addDefaultEventsBtn(getBtn){
 
