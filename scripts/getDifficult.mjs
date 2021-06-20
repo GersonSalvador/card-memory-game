@@ -13,8 +13,8 @@ export function getDifficult(){
       width: 660
     },
     master: {
-      pairs: 18,
-      width: 660
+      pairs: 25,
+      width: 890
     }
   }
   const difficult = document.getElementsByClassName('active')[0].getAttribute('id')
