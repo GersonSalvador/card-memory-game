@@ -4,19 +4,19 @@ import {getBtn} from './getBtn.mjs'
 
 export function handleStartBtn(flag){
 
-  const btn = getBtn('start')
+  const btn = getBtn('start', true)
 
   if(flag === 'start'){
     btn.innerHTML = 'Start'
-    btn.removeEventListener('click', resign)
-    btn.addEventListener('click',start)
+    btn.parentNode.removeEventListener('click', resign)
+    btn.parentNode.addEventListener('click',start)
     return
   }
 
-  if(flag === 'resign'){
+  if(flag === 'resign', true){
     btn.innerHTML = 'Resign'
-    btn.addEventListener('click', resign)
-    btn.removeEventListener('click',start)
+    btn.parentNode.addEventListener('click', resign)
+    btn.parentNode.removeEventListener('click',start)
     return
   }
 
