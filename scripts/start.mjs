@@ -11,7 +11,7 @@ export function start (){
 
   removeMessage()
 
-  handleStartBtn('resign')
+  handleStartBtn('start')
 
   const {pairs, width} = getDifficult()
   getBoard(pairs, width)
