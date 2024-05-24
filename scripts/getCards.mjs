@@ -2,7 +2,6 @@ import {handleClick} from './handleClick.mjs'
 
 export function getCards (cardNum){
 
-  // let imgs = [...Array(cardNum)].map((item, index) => new Date().getTime() + index)
   let imgs = [...Array(cardNum)].map((item, index) => index)
   
   imgs = [...imgs,...imgs]
