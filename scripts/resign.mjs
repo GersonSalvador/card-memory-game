@@ -1,9 +1,11 @@
 import {setMessage} from './setMessage.mjs'
 import {handleStartBtn} from './handleStartBtn.mjs'
+import {store} from './store.mjs'
 
 export function resign(){
-
-  clearInterval(game.timerInterval)
+  const gameStore = store()
+  const timerInterval = gameStore.get('timerInterval')
+  clearInterval(timerInterval)
 
   const board = document.getElementById('board')
   const title = 'Shame on you!'
@@ -16,5 +18,5 @@ export function resign(){
   board.innerHTML = ''
 
   setMessage({title, text, type})
-
+  gameStore.set('isGameStarted', false)
 }

@@ -2,16 +2,17 @@ import {checkFinish} from './checkFinish.mjs'
 import {handleClick} from './handleClick.mjs'
 import {handleStartBtn} from './handleStartBtn.mjs'
 import {finishGame} from './finishGame.mjs'
+import {store} from './store.mjs'
 
 export function hideCards ({cardIndex, id}){
 
-  game.attempts += 1
-  console.log(game.attempts)
-  if(game.cardSelected.id === id){
+  const gameStore = store()
+  const cardSelected = gameStore.get('cardSelected')
+  if(cardSelected.id === id){
   
     const cards = [
       document.querySelector(`div[data-index="${cardIndex}"]`),
-      document.querySelector(`div[data-index="${game.cardSelected.cardIndex}"]`)
+      document.querySelector(`div[data-index="${cardSelected.cardIndex}"]`)
     ]
     
     cards.map(item => {
@@ -21,13 +22,12 @@ export function hideCards ({cardIndex, id}){
     })
   }
 
-  game.cardSelected = {}
+  gameStore.set('cardSelected', {})
 
   if(checkFinish()){
-
     handleStartBtn('start')
     finishGame()
-
+    gameStore.set('isGameStarted', false)
   }else{
     const cards = [...document.getElementById('board').childNodes]
     cards.map(card => {
