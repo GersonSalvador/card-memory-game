@@ -22,7 +22,7 @@ export function getCards (cardNum){
     cardWrap.addEventListener('click', handleClick)
     const random = parseInt(Math.random() * imgs.length)
     
-    img.setAttribute('src',`https://avatars.dicebear.com/api/bottts/${imgs[random]}.svg`)
+    img.setAttribute('src',`https://api.dicebear.com/8.x/bottts/svg?seed=${imgs[random]}`)
     
     cardFront.setAttribute('data-id', imgs[random])
     imgs.splice(random, 1)
