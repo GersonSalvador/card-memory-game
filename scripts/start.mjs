@@ -9,14 +9,12 @@ import {getBoard} from './getBoard.mjs'
 import {store} from './store.mjs'
 
 export function start (){
+  const {pairs, width} = getDifficult()
   const game = store()
   game.set('isGameStarted', true)
 
   removeMessage()
-
   handleStartBtn('start')
-
-  const {pairs, width} = getDifficult()
   getBoard(pairs, width)
   resetClock(getClock)
   startClock()
